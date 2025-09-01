@@ -1,0 +1,20 @@
+{
+  "name": "add-remove-liquidity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^24.3.0"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "js-big-decimal": "^2.2.0"
+  }
+}
