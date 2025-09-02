@@ -10,7 +10,7 @@ const connection = sarosDLMM.connection;
 const { blockhash } = await connection.getLatestBlockhash({
     commitment: "confirmed",
 });
-const { tx } = await sarosDLMM.createPairWithConfig({
+const { tx, pair } = await sarosDLMM.createPairWithConfig({
     tokenBase: {
         mintAddress: PYUSD_TOKEN_DEVNET.mintAddress,
         decimal: PYUSD_TOKEN_DEVNET.decimals
@@ -19,7 +19,7 @@ const { tx } = await sarosDLMM.createPairWithConfig({
         mintAddress: WSOL_TOKEN_DEVNET.mintAddress,
         decimal: WSOL_TOKEN_DEVNET.decimals
     },
-    binStep: BIN_STEP_CONFIGS[1]?.binStep || 1,
+    binStep: BIN_STEP_CONFIGS[-1]?.binStep || 250,
     ratePrice: 1,
     payer: wallet.publicKey
 });
@@ -29,4 +29,5 @@ console.log(tx);
 tx.sign(wallet);
 const signature = await connection.sendTransaction(tx, [wallet]);
 console.log("Transaction signature:", signature);
+console.log("pair address:", pair);
 //# sourceMappingURL=create-pool.js.map
