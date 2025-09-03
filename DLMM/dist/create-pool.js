@@ -1,5 +1,5 @@
 // import { Keypair } from "@solana/web3.js";
-import { BIN_STEP_CONFIGS } from "@saros-finance/dlmm-sdk";
+// import { BIN_STEP_CONFIGS } from "@saros-finance/dlmm-sdk";
 import { PYUSD_TOKEN_DEVNET, WSOL_TOKEN_DEVNET } from "./constants.js";
 import { sarosDLMM } from "./service.js";
 import { loadWalletFromCLI } from "./wallet.js";
@@ -19,7 +19,7 @@ const { tx, pair } = await sarosDLMM.createPairWithConfig({
         mintAddress: WSOL_TOKEN_DEVNET.mintAddress,
         decimal: WSOL_TOKEN_DEVNET.decimals
     },
-    binStep: BIN_STEP_CONFIGS[-1]?.binStep || 250,
+    binStep: 20,
     ratePrice: 1,
     payer: wallet.publicKey
 });

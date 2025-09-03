@@ -1,7 +1,52 @@
-import { Keypair } from "@solana/web3.js";
+import { Keypair, Transaction, VersionedTransaction } from "@solana/web3.js";
 import { readFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
+/**
+ * Custom wallet adapter that implements the required interface for Dialect SDK
+ */
+export class CustomWalletAdapter {
+    keypair;
+    constructor(keypair) {
+        this.keypair = keypair;
+    }
+    get publicKey() {
+        return this.keypair.publicKey;
+    }
+    async signTransaction(transaction) {
+        if (transaction instanceof Transaction) {
+            transaction.sign(this.keypair);
+        }
+        else if (transaction instanceof VersionedTransaction) {
+            transaction.sign([this.keypair]);
+        }
+        return transaction;
+    }
+    async signAllTransactions(transactions) {
+        return transactions.map(tx => {
+            if (tx instanceof Transaction) {
+                tx.sign(this.keypair);
+            }
+            else if (tx instanceof VersionedTransaction) {
+                tx.sign([this.keypair]);
+            }
+            return tx;
+        });
+    }
+    // Required properties for wallet adapter compatibility
+    get connected() {
+        return true;
+    }
+    get connecting() {
+        return false;
+    }
+    async connect() {
+        // Already connected
+    }
+    async disconnect() {
+        // No-op
+    }
+}
 /**
  * Load keypair from Solana CLI default location
  * @returns Keypair object that can be used to sign transactions
