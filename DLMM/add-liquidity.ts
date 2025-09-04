@@ -13,7 +13,7 @@ const { blockhash } = await connection.getLatestBlockhash({ commitment: "confirm
 const pair = new PublicKey(PYUSD_WSOL_POOL_DEVNET.address);
 const pairInfo = await sarosDLMM.getPairAccount(pair);
 
-const binRange: [number, number] = [-65, 65];
+const binRange: [number, number] = [-5, 5];
 const txQueue: Transaction[] = [];
 const activeBin = pairInfo.activeId;
 const binArrayList = getMaxBinArray(binRange, activeBin);
